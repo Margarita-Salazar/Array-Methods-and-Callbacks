@@ -116,14 +116,11 @@ Use the higher order function getAverageGoals to do the following:
 */
 
 function getAverageGoals(getFinalsFunction) {
-    const teamGoals = getFinalsFunction.map(function(data){
-        return data['Home Team Goals']
-    })
-    console.log(teamGoals)
-    const averageTeamGoals = teamGoals.reduce(function(accumulator, currentValue){
-        let aveageFinalGoals = (accumulator + currentValue)/teamGoals.length;
-        return aveageFinalGoals
-    })
+    let totalGoals = getFinalsFunction.reduce(function(accumulator, currentValue){
+        return accumulator + (currentValue['Home Team Goals'] + currentValue['Away Team Goals']);
+    },0)
+    console.log(`total goals: ${totalGoals}`);
+    let averageTeamGoals = parseFloat((totalGoals)/getFinalsFunction.length).toFixed(2)
     return averageTeamGoals;
 }
 console.log('task 6', getAverageGoals(getFinals(fifaData)))
